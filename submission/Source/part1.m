@@ -20,7 +20,6 @@ for c = [1,2,5,10,50,100],
 	parameters = [' -t 0 -v 5 -c ',num2str(c)];
 	parameters = strcat(parameters,' -h 0');
 	accuracy = svmtrain(labelstrain_3_8,imgstrain_3_8,parameters);
-	% [predict_label, accuracy, dec_values] = svmpredict(labelstrain_3_8, imgstrain_3_8, model);
 	if(accuracy>max_accuracy)
 		max_C = c;
 		max_accuracy = accuracy;
@@ -32,6 +31,6 @@ fprintf('Max accuracy is %f by %d\n',max_accuracy,max_C);
 
 parameters = [' -t 0 -c ',num2str(max_C)];
 parameters = strcat(parameters,' -h 0');
-model = svmtrain(labelstrain_3_8,imgstrain_3_8,parameters);
+model_linear = svmtrain(labelstrain_3_8,imgstrain_3_8,parameters);
 [predict_label, accuracy, dec_values] = svmpredict(labelstest_3_8, imgstest_3_8, model);
-fprintf('Best prediction is %f',accuracy(1,1));
+fprintf('Final accuracy is %f\n',accuracy(1,1));
