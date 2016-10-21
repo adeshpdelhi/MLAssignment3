@@ -1,13 +1,17 @@
 fprintf('Preprocessing...\n');
 % MNIST read script from https://in.mathworks.com/matlabcentral/fileexchange/27675-read-digits-and-labels-from-mnist-database
 fprintf('Loading testing dataset\n');
-[imgstest labelstest] = readMNIST('t10k-images.idx3-ubyte', 't10k-labels.idx1-ubyte', 10000, 0);
+% [imgstest labelstest] = readMNIST('t10k-images.idx3-ubyte', 't10k-labels.idx1-ubyte', 10000, 0);
+imgstest = loadMNISTImages('t10k-images.idx3-ubyte');
+labelstest = loadMNISTLabels('t10k-labels.idx1-ubyte');
 fprintf('Loading training dataset\n');
-[imgstrain labelstrain] = readMNIST('train-images.idx3-ubyte', 'train-labels.idx1-ubyte', 60000, 0);
+% [imgstrain labelstrain] = readMNIST('train-images.idx3-ubyte', 'train-labels.idx1-ubyte', 60000, 0);
+imgstrain = loadMNISTImages('train-images.idx3-ubyte');
+labelstrain = loadMNISTLabels('train-labels.idx1-ubyte');
 
 fprintf('Reorganizing datasets for use by libSVM\n');
-imgstest = permute(imgstest,[3,1,2]);
-imgstrain = permute(imgstrain,[3,1,2]);
+imgstest = permute(imgstest,[2,1]);
+imgstrain = permute(imgstrain,[2,1]);
 
 % newimgstrain = zeros(size(imgstrain,1),size(imgstrain,2),size(imgstrain,3));
 % newlabelstrain = zeros(size(labelstrain,1));
@@ -69,10 +73,10 @@ labelstest = newlabelstest;
 fprintf('Randomizing...\n');
 ichoices = randperm(length(labelstrain));
 labelstrain = labelstrain(ichoices);
-imgstrain = imgstrain(ichoices,:,:);
+imgstrain = imgstrain(ichoices,:);
 
 ichoices = randperm(length(labelstest));
 labelstest = labelstest(ichoices);
-imgstest = imgstest(ichoices,:,:);
+imgstest = imgstest(ichoices,:);
 
 fprintf('Preprocessing done!\n');
