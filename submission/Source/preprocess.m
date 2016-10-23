@@ -70,13 +70,13 @@ labelstrain = newlabelstrain;
 imgstest = newimgstest;
 labelstest = newlabelstest;
 
-fprintf('Randomizing...\n');
-ichoices = randperm(length(labelstrain));
-labelstrain = labelstrain(ichoices);
-imgstrain = imgstrain(ichoices,:);
+% fprintf('Randomizing...\n');
+% ichoices = randperm(length(labelstrain));
+% labelstrain = labelstrain(ichoices);
+% imgstrain = imgstrain(ichoices,:);
 
-ichoices = randperm(length(labelstest));
-labelstest = labelstest(ichoices);
-imgstest = imgstest(ichoices,:);
+% ichoices = randperm(length(labelstest));
+% labelstest = labelstest(ichoices);
+% imgstest = imgstest(ichoices,:);
 
 fprintf('Preprocessing done!\n');
