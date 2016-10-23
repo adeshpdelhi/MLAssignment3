@@ -20,10 +20,11 @@ labelstest_3_8(labelstest_3_8 == 8) = -1;
 
 
 fprintf('Training binary SVM\n');
+fileID = fopen('part1result.txt','w');
 
-max_C = 1;
+max_C = 0.1;
 max_accuracy = 0;
-for c = [0.001,0.1,1],
+for c = [0.0001, 0.001,0.1,1,10,100],
 	fprintf('Testing c = %d\n',c);
 	parameters = ['-t 0 -v 5 -c ',num2str(c)];
 	parameters = strcat(parameters,' -h 0');
@@ -31,9 +32,11 @@ for c = [0.001,0.1,1],
 	if(accuracy>max_accuracy)
 		max_C = c;
 		max_accuracy = accuracy;
-		fprintf('Updated max C is %d wth max accuracy %f\n',max_C,max_accuracy);
+		fprintf('Updated max C is %d with max accuracy %f\n',max_C,max_accuracy);
 	end
+	fprintf(fileID,'C = %d  Accuracy %f\n',c,accuracy);
 end
+fclose(fileID);
 fprintf('Max accuracy is %f by %d\n',max_accuracy,max_C);
 
 
@@ -43,6 +46,10 @@ parameters = strcat(parameters,' -h 0');
 model = svmtrain(labelstrain_3_8,imgstrain_3_8,parameters);
 [predict_label1, accuracy1, dec_values1] = svmpredict(labelstest_3_8, imgstest_3_8, model);
 fprintf('Final accuracy is %f\n',accuracy1(1,1));
+
+model_linear = model;
+save LinearMod.mat model_linear;
+
 
 %%%% plotting ROC start
 
@@ -69,3 +76,4 @@ size(trueLabels);
 [rocData, thdArr] = generate_roc(scoreMatrix,trueLabels,100,true);
 
 %%%% plotting ROC end
+

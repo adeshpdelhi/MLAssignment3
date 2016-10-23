@@ -1,0 +1,7 @@
+C = 1.000000e-04  Accuracy 90.450000
+C = 1.000000e-03  Accuracy 95.300000
+C = 1.000000e-01  Accuracy 95.775000
+C = 1  Accuracy 94.925000
+C = 10  Accuracy 93.800000
+C = 100  Accuracy 93.725000
+C = 1000  Accuracy 93.725000

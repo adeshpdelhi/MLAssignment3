@@ -45,7 +45,8 @@ end
 rocData = [fpr;tpr];
 
 if(plotROC)
-    figure; plot(rocData(1,:),rocData(2,:),'b.-');
+    figure;plot(rocData(1,:),rocData(2,:),'b.-','DisplayName','RBF Kernel');
+    legend('show');
     title('ROC Curve');
     xlabel('False Positive Rate');
 end
